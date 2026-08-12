@@ -10,7 +10,7 @@ PEDAL is a deliberately basic, rider-only pedicab hailing app used to teach agen
 
 > **Do not recover intent from a conversation or prototype. Read the artifacts, execute one ready sprint, return evidence, and record the result.**
 
-## Product in one paragraph
+## THe Product
 
 A rider selects a destination, reviews a mocked 4-minute pickup estimate and `$18` fare, requests a pedicab, sees matching and driver assignment as distinct states, progresses through a simulated ride, and receives a final instruction to pay the driver directly. Everything runs locally with deterministic fixtures. PEDAL has no backend, authentication, live map, real driver system, production matching, or in-app payment.
 
