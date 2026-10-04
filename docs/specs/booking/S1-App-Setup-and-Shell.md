@@ -12,12 +12,12 @@ This sprint creates the mechanics every later screen must use; it does not imple
 
 | Part | Description | Status |
 |---|---|---|
-| **1** | Scaffold the React and TypeScript project, dependencies, scripts, and test configuration | 🔲 Not started |
-| **2** | Implement the visual tokens, responsive rider frame, brand header, and static city map | 🔲 Not started |
-| **3** | Implement canonical domain types, deterministic fixtures, initial state, events, and reducer | 🔲 Not started |
-| **4** | Implement versioned localStorage load, validation, persistence, and reset behavior | 🔲 Not started |
-| **5** | Implement the app provider and query-gated Demo Controls foundation | 🔲 Not started |
-| **6** | Add unit, component, accessibility, network-boundary, and smoke E2E verification | 🔲 Not started |
+| **1** | Scaffold the React and TypeScript project, dependencies, scripts, and test configuration | ✅ Done |
+| **2** | Implement the visual tokens, responsive rider frame, brand header, and static city map | ✅ Done |
+| **3** | Implement canonical domain types, deterministic fixtures, initial state, events, and reducer | ✅ Done |
+| **4** | Implement versioned localStorage load, validation, persistence, and reset behavior | ✅ Done |
+| **5** | Implement the app provider and query-gated Demo Controls foundation | ✅ Done |
+| **6** | Add unit, component, accessibility, network-boundary, and smoke E2E verification | ✅ Done |
 
 ## Prerequisites
 
@@ -310,13 +310,13 @@ Populate this table during execution.
 
 | Category | Command or check | Result | Evidence or notes |
 |---|---|---|---|
-| Install | `npm install` | 🔲 | |
-| Type safety | `npm run typecheck` | 🔲 | |
-| Unit/component | `npm run test:run` | 🔲 | |
-| Build | `npm run build` | 🔲 | |
-| E2E | `npm run test:e2e` | 🔲 | |
-| Network boundary | Local-origin request assertion | 🔲 | |
-| Acceptance | Criteria above | 🔲 | |
+| Install | `npm install` | ✅ Pass | `added 176 packages, and audited 177 packages in 16s`; lockfile committed. npm reported two moderate audit advisories, which did not prevent installation. |
+| Type safety | `npm run typecheck` | ✅ Pass | `tsc -b` completed with zero output/errors. |
+| Unit/component | `npm run test:run` | ✅ Pass | Vitest: `Test Files 3 passed (3)` and `Tests 19 passed (19)`. |
+| Build | `npm run build` | ✅ Pass | Vite 7.3.6 transformed 39 modules and reported `✓ built in 2.54s`. |
+| E2E | `npm run test:e2e` | ✅ Pass | Chromium installed successfully; Playwright: `1 passed (2.9s)`. |
+| Network boundary | Local-origin request assertion | ✅ Pass | The Playwright smoke test captured page requests and asserted `externalRequests` was `[]`; the one E2E test passed. |
+| Acceptance | Criteria above | ✅ Pass | Shell is static/non-selectable as scoped; reducer, localStorage, demo boundary, responsive width, semantics, and local-only network boundary are covered by the passing checks. |
 
 Use `✅ Pass`, `❌ Fail`, or `⏭️ N/A` when the sprint runs.
 

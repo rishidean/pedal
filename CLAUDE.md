@@ -27,5 +27,9 @@ A sprint is not done until `run-qa` returns GREEN. GREEN means: typecheck, unit/
 If you learn something durable — a convention, a gotcha, a rule every future sprint should inherit — add it below this line.
 
 ## Learned conventions
-
-(none yet)
+- **Preserve the S1 scope boundary.** The destination-entry shell exposes only static fixture previews. Destination controls, ride review, matching, and assignment UI begin in Booking S2; lifecycle buttons begin in Booking S3.
+- **Use the exact fixture and storage contracts.** State stays local, deterministic, and versioned under `pedal.ride.v1`. Returning to `destination_entry` clears that active key; malformed or invalid records fail closed to a fresh initial state.
+- **Keep state mechanics pure.** `pedalReducer` has no URL, timer, storage, browser, or network side effect. The provider owns persistence; matching scheduling belongs to the application layer, not the reducer.
+- **Keep demo infrastructure isolated.** The exact query gate is `new URLSearchParams(window.location.search).get('demo') === '1'`. Render Demo Controls outside `RiderFrame`; no lifecycle controls before S3.
+- **Keep verification runners separate.** Vitest includes `src/**/*.test.ts` and `src/**/*.test.tsx`; Playwright owns `e2e/`. Otherwise Vitest tries to execute Playwright's `test()` API and fails.
+- **Match accessible labels exactly.** The rider frame is named `PEDAL rider experience` and the wordmark is exactly `PEDAL`; use exact matching for the wordmark to avoid a strict-locator collision.
