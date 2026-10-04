@@ -1,7 +1,7 @@
 # PEDAL
 
-**Repository state:** Definition complete  
-**Canonical tag:** `defined`  
+**Repository state:** Definition complete, harness installed  
+**Starting tag:** `harness`  
 **Implementation status:** No application code exists at this checkpoint
 
 ## TL;DR
@@ -10,9 +10,21 @@ PEDAL is a deliberately basic, rider-only pedicab hailing app used to teach agen
 
 > **Do not recover intent from a conversation or prototype. Read the artifacts, execute one ready sprint, return evidence, and record the result.**
 
-## THe Product
+## The Product
 
 A rider selects a destination, reviews a mocked 4-minute pickup estimate and `$18` fare, requests a pedicab, sees matching and driver assignment as distinct states, progresses through a simulated ride, and receives a final instruction to pay the driver directly. Everything runs locally with deterministic fixtures. PEDAL has no backend, authentication, live map, real driver system, production matching, or in-app payment.
+
+## Where to start
+
+This repository carries more than one checkpoint. Pick the one that matches what you are doing.
+
+| Ref | Contains | Use it when |
+|---|---|---|
+| `defined` | The nine product documents, and nothing else | You want to read the agreement without the harness |
+| `harness` | The documents plus the agent harness (`.claude/`, `prompt.md`, `run.sh`, `setup.sh`) | You are about to run DEVELOPMENT. **Start here** |
+| `booking-s1-accepted` | The documents, the harness, and the Booking S1 application shell | You want a working shell to look at, or a state to recover to |
+
+The harness is what turns these documents into a running system. A checkout of `defined` has the specifications and no way to execute them.
 
 ## Artifact map
 
@@ -41,7 +53,7 @@ Sprints run in order. A sprint is not complete because the interface looks plaus
 
 ## How DEVELOPMENT begins
 
-1. Start from a clean checkout of the `defined` tag.
+1. Start from a clean checkout of the `harness` tag.
 2. Open Claude Code at the repository root.
 3. Point the DEVELOPMENT harness at this checkout, or use the following control prompt until the harness command is installed:
 
@@ -90,9 +102,9 @@ The implementation agent must preserve these boundaries:
 - Do not hide mock behavior. Demo controls and static treatments should remain clearly bounded.
 - Do not mark a sprint complete until every applicable verification step passes and the result is recorded.
 
-## Repository contract at `defined`
+## Repository contract at `harness`
 
-This checkpoint contains Markdown specifications only. It intentionally has no package manifest, source directory, test code, generated prototype code, environment file, backend, or application scaffold. Booking S1 creates the implementation foundation.
+This checkpoint contains the Markdown specifications and the agent harness. It intentionally has no package manifest, source directory, test code, generated prototype code, environment file, backend, or application scaffold. Booking S1 creates the implementation foundation.
 
 ## References
 
