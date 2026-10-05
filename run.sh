@@ -9,7 +9,7 @@ for turn in $(seq 1 "$MAX_TURNS"); do
     echo "run.sh: a sprint is blocked (⛔). A human steps in here. See PROGRESS.md."
     exit 1
   fi
-  remaining=$(sed -n '/## Sprints/,/## Current Status/p' docs/Roadmap.md | grep -c '🔲' || true)
+  remaining=$(sed -n '/## Sprints/,/## Current Status/p' docs/Roadmap.md | grep -cE '🔲|▶' || true)
   if [ "$remaining" -eq 0 ]; then
     echo "run.sh: every Booking sprint is done. Open the app and take the ride."
     exit 0

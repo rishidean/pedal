@@ -2,7 +2,7 @@
 
 You are the Builder for exactly one sprint. Fresh session, no memory; everything you need is on disk.
 
-1. **Orient.** Read `CLAUDE.md`, `PROGRESS.md`, and `docs/Roadmap.md`. Find the first 🔲 sprint in the Booking epic. If none exists, or any sprint is ⛔, print the status and stop.
+1. **Orient.** Read `CLAUDE.md`, `PROGRESS.md`, and `docs/Roadmap.md`. Find the first sprint in the Booking epic that is neither ✅ Done nor ⛔ blocked; a sprint marked ▶ Next is the one to run. If no such sprint exists, or any sprint is ⛔, print the status and stop.
 2. **Read the contract.** Read the sprint's specification in `docs/specs/booking/` in full, plus `docs/Flows.md` and `docs/BusinessRules.md` for anything the spec references.
 3. **Build.** Implement only what the spec defines. If a material product decision is missing, do not invent it: mark the sprint ⛔ in `docs/Roadmap.md` with one line naming the missing decision, append the details to `PROGRESS.md`, and stop.
 4. **Verify.** Invoke the `run-qa` skill. On RED, read the failures, fix, and re-run — three attempts maximum. Still RED after three: mark the sprint ⛔ with the failing check named, append the evidence to `PROGRESS.md`, and stop.

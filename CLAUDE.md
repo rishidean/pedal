@@ -27,6 +27,7 @@ A sprint is not done until `run-qa` returns GREEN. GREEN means: typecheck, unit/
 If you learn something durable — a convention, a gotcha, a rule every future sprint should inherit — add it below this line.
 
 ## Learned conventions
+- **The Roadmap status vocabulary is fixed.** A sprint row carries exactly one marker: `🔲 Not started`, `▶ Next`, `✅ Done`, or `⛔ blocked`. `run.sh` counts both 🔲 and ▶ as remaining, and `prompt.md` selects the first row that is neither ✅ nor ⛔. Never invent a fifth marker.
 - **Preserve the S1 scope boundary.** The destination-entry shell exposes only static fixture previews. Destination controls, ride review, matching, and assignment UI begin in Booking S2; lifecycle buttons begin in Booking S3.
 - **Use the exact fixture and storage contracts.** State stays local, deterministic, and versioned under `pedal.ride.v1`. Returning to `destination_entry` clears that active key; malformed or invalid records fail closed to a fresh initial state.
 - **Keep state mechanics pure.** `pedalReducer` has no URL, timer, storage, browser, or network side effect. The provider owns persistence; matching scheduling belongs to the application layer, not the reducer.
