@@ -1,7 +1,10 @@
 import { DemoControls } from '../components/DemoControls';
 import { DestinationEntryScreen } from '../components/DestinationEntryScreen';
+import { DriverArrivedScreen } from '../components/DriverArrivedScreen';
 import { DriverAssignedScreen } from '../components/DriverAssignedScreen';
 import { MatchingScreen } from '../components/MatchingScreen';
+import { RideCompleteScreen } from '../components/RideCompleteScreen';
+import { RideInProgressScreen } from '../components/RideInProgressScreen';
 import { RideReviewScreen } from '../components/RideReviewScreen';
 import { useMatchingAssignment } from '../hooks/useMatchingAssignment';
 import { PedalProvider } from './PedalProvider';
@@ -20,9 +23,12 @@ function StageRenderer() {
       return <MatchingScreen />;
     case 'driver_assigned':
       return <DriverAssignedScreen />;
-    default:
-      // Later lifecycle stages intentionally have no rider implementation until Booking S3.
-      return null;
+    case 'driver_arrived':
+      return <DriverArrivedScreen />;
+    case 'ride_in_progress':
+      return <RideInProgressScreen />;
+    case 'ride_completed':
+      return <RideCompleteScreen />;
   }
 }
 

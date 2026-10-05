@@ -90,6 +90,17 @@ describe('pedalReducer', () => {
     );
   });
 
+  it('rejects invalid lifecycle events so lifecycle order cannot be skipped', () => {
+    const assigned = stateAt('driver_assigned');
+    const arrived = stateAt('driver_arrived');
+    const inProgress = stateAt('ride_in_progress');
+
+    expect(pedalReducer(assigned, { type: 'START_RIDE' })).toBe(assigned);
+    expect(pedalReducer(assigned, { type: 'COMPLETE_RIDE' })).toBe(assigned);
+    expect(pedalReducer(arrived, { type: 'COMPLETE_RIDE' })).toBe(arrived);
+    expect(pedalReducer(inProgress, { type: 'RESET_RIDE' })).toBe(inProgress);
+  });
+
   it('ignores invalid and unknown events without mutating input state', () => {
     const initial = createInitialPedalState();
     const snapshot = structuredClone(initial);

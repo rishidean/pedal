@@ -286,7 +286,8 @@ h2 {
 
 .ride-option-card,
 .trip-summary-card,
-.driver-card {
+.driver-card,
+.completion-card {
   margin: 16px 22px;
   border: 1px solid rgb(16 35 63 / 10%);
   border-radius: 18px;
@@ -414,6 +415,38 @@ h2 {
   font-weight: 900;
 }
 
+.completion-card {
+  padding: 18px;
+}
+
+.completion-label {
+  margin-bottom: 5px;
+  color: rgb(16 35 63 / 62%);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.completion-destination {
+  margin-bottom: 20px;
+  font-size: 1.15rem;
+  font-weight: 900;
+}
+
+.completion-fare {
+  margin-bottom: 5px;
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.completion-instruction {
+  margin-bottom: 0;
+  color: rgb(16 35 63 / 76%);
+  font-weight: 800;
+}
+
 .demo-controls {
   width: min(100%, 440px);
   margin: 14px auto 0;
@@ -443,6 +476,19 @@ h2 {
   background: #fff8ec;
   padding: 1px 4px;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.demo-action {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 10px;
+  border: 1px solid #10233f;
+  border-radius: 12px;
+  background: #10233f;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
 }
 
 @media (min-width: 700px) {

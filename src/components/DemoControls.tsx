@@ -1,4 +1,5 @@
 import { usePedal } from '../app/usePedal';
+import type { PedalEvent, PedalStage } from '../state/pedalTypes';
 
 function isDemoMode(): boolean {
   return (
@@ -7,12 +8,20 @@ function isDemoMode(): boolean {
   );
 }
 
+const lifecycleActions: Partial<Record<PedalStage, { label: string; event: PedalEvent }>> = {
+  driver_assigned: { label: 'Simulate driver arrival', event: { type: 'DRIVER_ARRIVED' } },
+  driver_arrived: { label: 'Start simulated ride', event: { type: 'START_RIDE' } },
+  ride_in_progress: { label: 'Complete simulated ride', event: { type: 'COMPLETE_RIDE' } },
+};
+
 export function DemoControls() {
-  const { state } = usePedal();
+  const { state, dispatch } = usePedal();
 
   if (!isDemoMode()) {
     return null;
   }
+
+  const action = lifecycleActions[state.stage];
 
   return (
     <aside className="demo-controls" aria-labelledby="demo-controls-heading" data-testid="demo-controls">
@@ -21,8 +30,12 @@ export function DemoControls() {
       <p>
         Current state: <code>{state.stage}</code>
       </p>
-      {state.stage === 'destination_entry' ? <p>No demo action available</p> : null}
-      {state.stage === 'driver_assigned' ? <p>Lifecycle controls arrive in Booking S3</p> : null}
+      {action === undefined ? <p>No demo action available</p> : null}
+      {action !== undefined ? (
+        <button className="demo-action" type="button" onClick={() => dispatch(action.event)}>
+          {action.label}
+        </button>
+      ) : null}
     </aside>
   );
 }

@@ -10,11 +10,11 @@ Complete the basic PEDAL rider journey after driver assignment. Implement rider-
 
 | Part | Description | Status |
 |---|---|---|
-| **1** | Implement the driver-arrived rider state | 🔲 Not started |
-| **2** | Implement the ride-in-progress rider state | 🔲 Not started |
-| **3** | Implement completion, direct-payment instruction, and reset | 🔲 Not started |
-| **4** | Wire honest query-gated Demo Controls to valid lifecycle events | 🔲 Not started |
-| **5** | Verify restoration, invalid transitions, accessibility, full E2E, and the Booking epic acceptance | 🔲 Not started |
+| **1** | Implement the driver-arrived rider state | ✅ Done |
+| **2** | Implement the ride-in-progress rider state | ✅ Done |
+| **3** | Implement completion, direct-payment instruction, and reset | ✅ Done |
+| **4** | Wire honest query-gated Demo Controls to valid lifecycle events | ✅ Done |
+| **5** | Verify restoration, invalid transitions, accessibility, full E2E, and the Booking epic acceptance | ✅ Done |
 
 ## Prerequisites
 
@@ -210,37 +210,37 @@ Capture screenshots for driver arrived, ride in progress, ride complete, and fin
 
 ### Rider lifecycle
 
-- [ ] `driver_arrived` shows `Your pedicab is here`, Maya Chen, PEDAL 14, pickup, and destination.
-- [ ] `ride_in_progress` shows `Heading to {destination}` and `Estimated fare $18` with a static route treatment.
-- [ ] `ride_completed` shows `You’ve arrived`, the selected destination, `$18`, and `Pay the driver directly`.
-- [ ] No lifecycle screen contains payment confirmation, tips, receipt, rating, contact, cancellation, live location, route editing, or safety controls.
-- [ ] Each lifecycle state survives refresh with its required context.
+- [x] `driver_arrived` shows `Your pedicab is here`, Maya Chen, PEDAL 14, pickup, and destination.
+- [x] `ride_in_progress` shows `Heading to {destination}` and `Estimated fare $18` with a static route treatment.
+- [x] `ride_completed` shows `You’ve arrived`, the selected destination, `$18`, and `Pay the driver directly`.
+- [x] No lifecycle screen contains payment confirmation, tips, receipt, rating, contact, cancellation, live location, route editing, or safety controls.
+- [x] Each lifecycle state survives refresh with its required context.
 
 ### Demo Controls
 
-- [ ] The panel is absent unless the exact query contains `demo=1`.
-- [ ] The panel is visibly separate from the rider surface and labeled `Teaching only`.
-- [ ] `driver_assigned` exposes only `Simulate driver arrival`.
-- [ ] `driver_arrived` exposes only `Start simulated ride`.
-- [ ] `ride_in_progress` exposes only `Complete simulated ride`.
-- [ ] Ineligible states expose no demo action.
-- [ ] Default-mode DOM contains no driver-side transition control.
+- [x] The panel is absent unless the exact query contains `demo=1`.
+- [x] The panel is visibly separate from the rider surface and labeled `Teaching only`.
+- [x] `driver_assigned` exposes only `Simulate driver arrival`.
+- [x] `driver_arrived` exposes only `Start simulated ride`.
+- [x] `ride_in_progress` exposes only `Complete simulated ride`.
+- [x] Ineligible states expose no demo action.
+- [x] Default-mode DOM contains no driver-side transition control.
 
 ### Completion and reset
 
-- [ ] Completion does not claim the rider paid.
-- [ ] `Start another ride` returns to destination entry and clears all active-ride data.
-- [ ] Refresh after reset remains at destination entry.
-- [ ] A pending matching timer cannot fire after reset.
+- [x] Completion does not claim the rider paid.
+- [x] `Start another ride` returns to destination entry and clears all active-ride data.
+- [x] Refresh after reset remains at destination entry.
+- [x] A pending matching timer cannot fire after reset.
 
 ### Full EPIC quality
 
-- [ ] The canonical Ferry Building path passes from start through reset.
-- [ ] The rider UI is usable at 375px, keyboard operable, and semantically announced.
-- [ ] All visible values match the canonical fixtures.
-- [ ] No external application request occurs.
-- [ ] No backend, auth, map provider, payment package, or the Realism epic behavior exists.
-- [ ] `npm run typecheck`, `npm run test:run`, `npm run build`, and `npm run test:e2e` pass.
+- [x] The canonical Ferry Building path passes from start through reset.
+- [x] The rider UI is usable at 375px, keyboard operable, and semantically announced.
+- [x] All visible values match the canonical fixtures.
+- [x] No external application request occurs.
+- [x] No backend, auth, map provider, payment package, or the Realism epic behavior exists.
+- [x] `npm run typecheck`, `npm run test:run`, `npm run build`, and `npm run test:e2e` pass.
 
 ## Verification & Testing
 
@@ -259,16 +259,16 @@ Populate during execution.
 
 | Category | Command or check | Result | Evidence or notes |
 |---|---|---|---|
-| Type safety | `npm run typecheck` | 🔲 | |
-| Unit/component | `npm run test:run` | 🔲 | |
-| Build | `npm run build` | 🔲 | |
-| E2E | `npm run test:e2e` | 🔲 | |
-| Full rider path | Destination through reset | 🔲 | |
-| Persistence | Restore every lifecycle state | 🔲 | |
-| Demo boundary | Exact query gate and default absence | 🔲 | |
-| Payment boundary | Direct instruction; no payment state | 🔲 | |
-| Network boundary | Local-origin request assertion | 🔲 | |
-| Acceptance | Criteria above | 🔲 | |
+| Type safety | `npm run typecheck` | ✅ Pass | `tsc -b` exited 0 on 2026-10-04. |
+| Unit/component | `npm run test:run` | ✅ Pass | Vitest: 9 test files passed; 44 tests passed in 3.14s. |
+| Build | `npm run build` | ✅ Pass | Vite 7.3.6 transformed 50 modules and built in 2.48s. |
+| E2E | `npm run test:e2e` | ✅ Pass | Playwright: 3 passed in 6.1s; the complete lifecycle spec captured four S3 screenshots under `test-results/`. |
+| Full rider path | Destination through reset | ✅ Pass | `complete-rider-journey.spec.ts` drives Ferry Building through review, matching, assignment, arrival, in-progress, completion, reset, and post-reset reload. |
+| Persistence | Restore every lifecycle state | ✅ Pass | `LifecyclePersistence.test.tsx` restores assigned, arrived, in-progress, and completed states; Playwright reloads each active lifecycle state and the reset state. |
+| Demo boundary | Exact query gate and default absence | ✅ Pass | `DemoControls.test.tsx` rejects `demo=true`, `demo=0`, and unrelated queries, proves one valid action per eligible stage, and the E2E flow proves default-mode absence. |
+| Payment boundary | Direct instruction; no payment state | ✅ Pass | `RideLifecycle.test.tsx` asserts `Pay the driver directly` and the absence of paid, payment-method, tip, receipt, rating, and transaction UI. |
+| Network boundary | Local-origin request assertion | ✅ Pass | All Playwright specs collect non-local origins and assert `externalRequests` is `[]`. |
+| Acceptance | Criteria above | ✅ Pass | All 22 criteria are covered by the passing component, reducer, Playwright, CSS, and source-boundary evidence recorded above. |
 
 Use `✅ Pass`, `❌ Fail`, or `⏭️ N/A` when the sprint runs.
 
@@ -302,14 +302,14 @@ The complete app remains a local teaching simulation. Cancellation, no-driver ti
 
 ## Definition of Done
 
-- [ ] All acceptance criteria are met.
-- [ ] Every applicable Test Results Log row is populated and passing.
-- [ ] `docs/results/booking-s3.md` proves both the sprint and EPIC outcomes.
-- [ ] `docs/Roadmap.md` marks all the Booking epic sprints done.
-- [ ] Canonical Booking S1, Booking S2, and Booking S3 recovery references exist.
-- [ ] The complete implementation remains inside the locked product and technical boundary.
-- [ ] No material decision was invented during implementation.
-- [ ] The accepted recovery commit exists with the required message.
+- [x] All acceptance criteria are met.
+- [x] Every applicable Test Results Log row is populated and passing.
+- [x] `docs/results/booking-s3.md` proves both the sprint and EPIC outcomes.
+- [x] `docs/Roadmap.md` marks all the Booking epic sprints done.
+- [x] Canonical Booking S1, Booking S2, and Booking S3 recovery references exist.
+- [x] The complete implementation remains inside the locked product and technical boundary.
+- [x] No material decision was invented during implementation.
+- [x] The accepted recovery commit exists with the required message.
 
 ## Next Step
 

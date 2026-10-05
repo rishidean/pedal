@@ -1,7 +1,11 @@
 import { usePedal } from '../app/usePedal';
 import { driverFixture, pedicabFixture } from '../data/pedalFixtures';
 
-export function DriverCard() {
+interface DriverCardProps {
+  showEta?: boolean;
+}
+
+export function DriverCard({ showEta = true }: DriverCardProps) {
   const { state } = usePedal();
 
   if (
@@ -19,7 +23,7 @@ export function DriverCard() {
         <p className="driver-name">{driverFixture.name}</p>
         <p className="driver-pedicab">{pedicabFixture.label}</p>
       </div>
-      <p className="driver-eta">{state.assignedEtaMinutes} min away</p>
+      {showEta ? <p className="driver-eta">{state.assignedEtaMinutes} min away</p> : null}
     </section>
   );
 }

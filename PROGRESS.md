@@ -27,3 +27,11 @@ Handoff format:
 **Decisions:** The matching timer remains an application-layer hook; it is scheduled only in `matching`, cleaned up on stage exit or unmount, and the reducer remains the final transition guard. The rider surface remains static and local-only; S2 deliberately adds no lifecycle action, live location, contact, payment, or recovery capability.
 **Gotchas:** The persisted-matching test must exercise React Strict Mode and advance fake timers to prove one assignment only. Playwright screenshot artifacts are gitignored below `test-results/`; retain their paths in the result record rather than committing them.
 **Next:** Execute Booking S3 only. Add the query-gated lifecycle transitions and their screens without changing the completed S2 request, matching, assignment, fixture, persistence, static-map, or no-external-request contracts.
+
+---
+
+## Booking S3 — 2026-10-04
+**Built:** The local, rider-only journey now renders driver arrival, static-route ride progress, and completion with the `$18` direct-payment instruction; exact-query Demo Controls simulate only the valid driver-side events; each active lifecycle state restores; reset clears the active record; and the full Ferry Building path is proven in Playwright.
+**Decisions:** S3 reuses the existing pure TR-005 through TR-008 reducer transitions, `pedal.ride.v1` validation, remove-key reset policy, canonical fixtures, and static local map. The only recovery was test-only: three journey locators use `{ exact: true }` because the intentionally duplicated SR-only live announcements otherwise create Playwright strict-locator collisions; no application behavior changed.
+**Gotchas:** Visible lifecycle copy is intentionally repeated in semantic live regions. Scope exact Playwright text locators (or use `{ exact: true }` for the complete visible string) rather than weakening assertions or removing announcements. Screenshot artifacts remain gitignored beneath `test-results/` and are recorded in `docs/results/booking-s3.md`.
+**Next:** Booking is complete. Do not execute Realism until fresh Discovery and Definition resolve its product decisions and produce ready sprint specifications.
