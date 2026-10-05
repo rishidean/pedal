@@ -7,9 +7,16 @@ fail=0
 
 if command -v node >/dev/null 2>&1; then
   major=$(node -v | sed 's/^v//' | cut -d. -f1)
-  if [ "$major" -lt 18 ]; then echo "✗ Node 18+ required (found $(node -v))"; fail=1; else echo "✓ Node $(node -v)"; fi
+  minor=$(node -v | sed 's/^v//' | cut -d. -f2)
+  # Booking S1 installs Vite 7, which refuses to build below Node 20.19. Checking only the
+  # major version lets Node 18 or early 20 pass here and then fail at the first build.
+  if [ "$major" -lt 20 ] || { [ "$major" -eq 20 ] && [ "$minor" -lt 19 ]; }; then
+    echo "✗ Node 20.19+ required (found $(node -v)); Vite 7 will not build below it."; fail=1
+  else
+    echo "✓ Node $(node -v)"
+  fi
 else
-  echo "✗ Node not found (18+ required)"; fail=1
+  echo "✗ Node not found (20.19+ required)"; fail=1
 fi
 
 command -v npm >/dev/null 2>&1 && echo "✓ npm $(npm -v)" || { echo "✗ npm not found"; fail=1; }
