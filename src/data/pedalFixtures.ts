@@ -15,7 +15,7 @@ export const destinationIds = destinations.map(({ id }) => id) as DestinationId[
 
 export const estimateFixture: PedalEstimate = {
   pickupEtaMinutes: 4,
-  fareCents: 1800,
+  fareCents: 1801,
   currency: 'USD',
 };
 
