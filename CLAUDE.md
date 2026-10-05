@@ -28,5 +28,4 @@ If you learn something durable — a convention, a gotcha, a rule every future s
 
 ## Learned conventions
 
-(none yet)
 - **The Roadmap status vocabulary is fixed.** A sprint row carries exactly one marker: `🔲 Not started`, `▶ Next`, `✅ Done`, or `⛔ blocked`. `run.sh` counts both 🔲 and ▶ as remaining, and `prompt.md` selects the first row that is neither ✅ nor ⛔. Never invent a fifth marker.
