@@ -23,6 +23,8 @@ This repository carries more than one checkpoint. Pick the one that matches what
 | `defined` | The nine product documents, and nothing else | You want to read the agreement without the harness |
 | `harness` | The documents plus the agent harness (`.claude/`, `prompt.md`, `run.sh`, `setup.sh`) | You are about to run DEVELOPMENT. **Start here** |
 | `booking-s1-accepted` | The documents, the harness, and the Booking S1 application shell | You want a working shell to look at, or a state to recover to |
+| `booking-s2-accepted` | The documents, the harness, and Booking S2's ride request and assignment | You want a journey that reaches an assigned driver |
+| `booking-s3-accepted` | The documents, the harness, and the completed Booking epic | You want the finished application, or the state a workshop run should reproduce |
 
 The harness is what turns these documents into a running system. A checkout of `defined` has the specifications and no way to execute them.
 
