@@ -20,6 +20,7 @@ describe('App shell', () => {
     expect(screen.getByText('Oracle Park')).toBeInTheDocument();
     expect(screen.getByTestId('static-city-map')).toBeInTheDocument();
     expect(screen.getByRole('main', { name: 'PEDAL rider experience' })).toBeInTheDocument();
+    expect(screen.getAllByRole('button')).toHaveLength(3);
     expect(screen.queryByTestId('demo-controls')).not.toBeInTheDocument();
   });
 

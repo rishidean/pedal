@@ -22,6 +22,7 @@ export function DemoControls() {
         Current state: <code>{state.stage}</code>
       </p>
       {state.stage === 'destination_entry' ? <p>No demo action available</p> : null}
+      {state.stage === 'driver_assigned' ? <p>Lifecycle controls arrive in Booking S3</p> : null}
     </aside>
   );
 }

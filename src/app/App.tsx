@@ -1,46 +1,37 @@
 import { DemoControls } from '../components/DemoControls';
-import { BrandHeader } from '../components/BrandHeader';
-import { RiderFrame } from '../components/RiderFrame';
-import { StaticCityMap } from '../components/StaticCityMap';
-import { destinations, pickupFixture } from '../data/pedalFixtures';
+import { DestinationEntryScreen } from '../components/DestinationEntryScreen';
+import { DriverAssignedScreen } from '../components/DriverAssignedScreen';
+import { MatchingScreen } from '../components/MatchingScreen';
+import { RideReviewScreen } from '../components/RideReviewScreen';
+import { useMatchingAssignment } from '../hooks/useMatchingAssignment';
 import { PedalProvider } from './PedalProvider';
+import { usePedal } from './usePedal';
 
-function DestinationEntryShell() {
-  return (
-    <>
-      <RiderFrame>
-        <BrandHeader />
-        <section className="journey-intro" aria-labelledby="destination-heading">
-          <p className="eyebrow">A short ride across town</p>
-          <h1 id="destination-heading">Where are you headed?</h1>
-          <p className="pickup-copy">
-            <span aria-hidden="true">●</span> Pickup: {pickupFixture.label}
-          </p>
-        </section>
-        <section aria-labelledby="landmark-heading" className="landmark-section">
-          <h2 id="landmark-heading">Local landmarks</h2>
-          <ul className="landmark-list">
-            {destinations.map((destination) => (
-              <li className="landmark-card" key={destination.id}>
-                <span className="landmark-dot" aria-hidden="true" />
-                <span>{destination.label}</span>
-                <span className="preview-label">Coming next</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-        <StaticCityMap />
-      </RiderFrame>
-      <DemoControls />
-    </>
-  );
+function StageRenderer() {
+  const { state } = usePedal();
+  useMatchingAssignment();
+
+  switch (state.stage) {
+    case 'destination_entry':
+      return <DestinationEntryScreen />;
+    case 'ride_review':
+      return <RideReviewScreen />;
+    case 'matching':
+      return <MatchingScreen />;
+    case 'driver_assigned':
+      return <DriverAssignedScreen />;
+    default:
+      // Later lifecycle stages intentionally have no rider implementation until Booking S3.
+      return null;
+  }
 }
 
 export function App() {
   return (
     <PedalProvider>
       <div className="app-canvas">
-        <DestinationEntryShell />
+        <StageRenderer />
+        <DemoControls />
       </div>
     </PedalProvider>
   );

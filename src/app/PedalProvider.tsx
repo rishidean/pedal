@@ -1,4 +1,4 @@
-import { createContext, useEffect, useMemo, useReducer, useRef } from 'react';
+import { createContext, useLayoutEffect, useMemo, useReducer, useRef } from 'react';
 import { clearPedalState, loadPedalState, savePedalState } from '../state/pedalStorage';
 import { pedalReducer } from '../state/pedalReducer';
 import type { Dispatch, ReactNode } from 'react';
@@ -19,7 +19,7 @@ export function PedalProvider({ children }: PedalProviderProps) {
   const [state, dispatch] = useReducer(pedalReducer, undefined, loadPedalState);
   const persistedStateRef = useRef(state);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (persistedStateRef.current !== state) {
       if (state.stage === 'destination_entry') {
         clearPedalState();

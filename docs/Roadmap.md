@@ -75,8 +75,8 @@ Groundwork is complete and stays in the catalog as the record of how `defined` c
 | Sprint | Focus | Status |
 |---|---|---|
 | **S1 — App Setup and Shell** | Create the Vite React and TypeScript application, Tailwind visual system, mobile rider frame, static city map, typed state and reducer foundation, deterministic fixture catalog, `localStorage` adapter, query-gated Demo Controls foundation, and verification commands. The app starts at destination entry and contains no ride-request implementation beyond the shell contract. → [`spec`](./specs/booking/S1-App-Setup-and-Shell.md) | ✅ Done |
-| **S2 — Ride Request** | Implement landmark destination selection, ride review, canonical 4-minute and `$18` estimate, request creation, explicit matching state, deterministic 1,200ms assignment, and Maya Chen/PEDAL 14 driver card with 3-minute ETA. Add state, component, persistence, accessibility, and Playwright evidence through `driver_assigned`. → [`spec`](./specs/booking/S2-Ride-Request.md) | ▶ Next |
-| **S3 — Ride Lifecycle** | Implement demo-mode transitions through driver arrived, ride in progress, and ride complete; show the `$18` fare and `Pay the driver directly`; restore each state after refresh; reset to a fresh ride; and complete the full end-to-end verification path. → [`spec`](./specs/booking/S3-Ride-Lifecycle.md) | 🔲 Not started |
+| **S2 — Ride Request** | Implement landmark destination selection, ride review, canonical 4-minute and `$18` estimate, request creation, explicit matching state, deterministic 1,200ms assignment, and Maya Chen/PEDAL 14 driver card with 3-minute ETA. Add state, component, persistence, accessibility, and Playwright evidence through `driver_assigned`. → [`spec`](./specs/booking/S2-Ride-Request.md) | ✅ Done |
+| **S3 — Ride Lifecycle** | Implement demo-mode transitions through driver arrived, ride in progress, and ride complete; show the `$18` fare and `Pay the driver directly`; restore each state after refresh; reset to a fresh ride; and complete the full end-to-end verification path. → [`spec`](./specs/booking/S3-Ride-Lifecycle.md) | ▶ Next |
 
 **Dependencies:** S2 starts only after S1 passes. S3 starts only after S2 passes. A failed sprint remains active; the harness may not skip ahead.
 
@@ -86,9 +86,9 @@ Groundwork is complete and stays in the catalog as the record of how `defined` c
 
 ## Current Status
 
-**Active:** no implementation sprint is in progress. Booking S1 is accepted with its local recovery commit; the repository now contains the runnable shell foundation.
+**Active:** no implementation sprint is in progress. Booking S2 is accepted with its local recovery commit; the repository now supports fixture-backed destination selection, ride review, explicit matching, and deterministic driver assignment through `driver_assigned`.
 
-**Next:** Booking S2 (Ride Request).
+**Next:** Booking S3 (Ride Lifecycle).
 
 ## Readiness rule
 

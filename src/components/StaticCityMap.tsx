@@ -1,8 +1,17 @@
-export function StaticCityMap() {
+interface StaticCityMapProps {
+  mode?: 'default' | 'matching' | 'route';
+}
+
+export function StaticCityMap({ mode = 'default' }: StaticCityMapProps) {
   return (
-    <section className="city-map" aria-labelledby="city-map-heading" data-testid="static-city-map">
+    <section
+      className={`city-map city-map--${mode}`}
+      aria-labelledby="city-map-heading"
+      data-testid="static-city-map"
+    >
       <h2 id="city-map-heading" className="sr-only">Static city map</h2>
       <div className="city-map-label" aria-hidden="true">PEDAL service area</div>
+      {mode === 'matching' ? <div className="matching-pulse" aria-hidden="true" /> : null}
       <svg aria-hidden="true" viewBox="0 0 340 220" focusable="false">
         <rect width="340" height="220" rx="24" fill="#DFF0FF" />
         <path d="M-10 42 100 77 206 38 354 85M-8 116l91-32 107 42 158-34M52-8l25 236M148-8l-7 236M253-8l22 236" fill="none" stroke="#FFF8EC" strokeWidth="16" strokeLinecap="round" />

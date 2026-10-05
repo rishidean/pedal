@@ -12,11 +12,11 @@ This sprint must preserve the distinction discovered in the prototype: a submitt
 
 | Part | Description | Status |
 |---|---|---|
-| **1** | Implement destination-entry interaction and fixture-backed selection | 🔲 Not started |
-| **2** | Implement ride review and request creation | 🔲 Not started |
-| **3** | Implement explicit matching UI and deterministic assignment effect | 🔲 Not started |
-| **4** | Implement driver-assigned UI and preserve trip context | 🔲 Not started |
-| **5** | Verify transitions, persistence, accessibility, responsiveness, and network boundary | 🔲 Not started |
+| **1** | Implement destination-entry interaction and fixture-backed selection | ✅ Done |
+| **2** | Implement ride review and request creation | ✅ Done |
+| **3** | Implement explicit matching UI and deterministic assignment effect | ✅ Done |
+| **4** | Implement driver-assigned UI and preserve trip context | ✅ Done |
+| **5** | Verify transitions, persistence, accessibility, responsiveness, and network boundary | ✅ Done |
 
 ## Prerequisites
 
@@ -237,37 +237,37 @@ Do not modify fixture values or business rules to make implementation easier. If
 
 ### Destination and review
 
-- [ ] The rider sees exactly the three canonical destination fixtures.
-- [ ] Selecting any fixture produces the correct ride-review state.
-- [ ] The canonical Ferry Building review shows `Current location`, `4 min`, and `Estimated fare $18`.
-- [ ] `Change destination` clears the destination and estimate and returns to destination entry.
-- [ ] There is no arbitrary address input, ride-type selection, payment method, promo, or scheduling control.
+- [x] The rider sees exactly the three canonical destination fixtures.
+- [x] Selecting any fixture produces the correct ride-review state.
+- [x] The canonical Ferry Building review shows `Current location`, `4 min`, and `Estimated fare $18`.
+- [x] `Change destination` clears the destination and estimate and returns to destination entry.
+- [x] There is no arbitrary address input, ride-type selection, payment method, promo, or scheduling control.
 
 ### Matching
 
-- [ ] `Request PEDAL` enters `matching`, not `driver_assigned`.
-- [ ] Matching preserves pickup, destination, ETA, and fare context.
-- [ ] `Finding a nearby pedicab` and supporting copy are visible and announced semantically.
-- [ ] At 1199ms the state remains matching; after the canonical delay it assigns the fixture driver.
-- [ ] Restore from persisted matching schedules one and only one assignment.
-- [ ] Matching makes no external request and does not imply a live radius or moving driver.
+- [x] `Request PEDAL` enters `matching`, not `driver_assigned`.
+- [x] Matching preserves pickup, destination, ETA, and fare context.
+- [x] `Finding a nearby pedicab` and supporting copy are visible and announced semantically.
+- [x] At 1199ms the state remains matching; after the canonical delay it assigns the fixture driver.
+- [x] Restore from persisted matching schedules one and only one assignment.
+- [x] Matching makes no external request and does not imply a live radius or moving driver.
 
 ### Driver assignment
 
-- [ ] Assignment displays Maya Chen, PEDAL 14, and `3 min away`.
-- [ ] Pickup and destination remain visible.
-- [ ] No call, chat, cancel, payment, rating, or live-location control exists.
-- [ ] Refresh restores the assigned state.
-- [ ] Booking S2 exposes no lifecycle transition button in either default or demo mode.
+- [x] Assignment displays Maya Chen, PEDAL 14, and `3 min away`.
+- [x] Pickup and destination remain visible.
+- [x] No call, chat, cancel, payment, rating, or live-location control exists.
+- [x] Refresh restores the assigned state.
+- [x] Booking S2 exposes no lifecycle transition button in either default or demo mode.
 
 ### Quality and verification
 
-- [ ] Keyboard and screen-reader interaction covers destination selection and request.
-- [ ] Primary controls have visible focus states and 44px minimum targets.
-- [ ] The rider slice has no horizontal overflow at 375px.
-- [ ] `npm run typecheck`, `npm run test:run`, `npm run build`, and `npm run test:e2e` pass.
-- [ ] Playwright screenshots show review, matching, and assignment.
-- [ ] Network evidence confirms no external application request.
+- [x] Keyboard and screen-reader interaction covers destination selection and request.
+- [x] Primary controls have visible focus states and 44px minimum targets.
+- [x] The rider slice has no horizontal overflow at 375px.
+- [x] `npm run typecheck`, `npm run test:run`, `npm run build`, and `npm run test:e2e` pass.
+- [x] Playwright screenshots show review, matching, and assignment.
+- [x] Network evidence confirms no external application request.
 
 ## Verification & Testing
 
@@ -286,14 +286,14 @@ Populate during execution.
 
 | Category | Command or check | Result | Evidence or notes |
 |---|---|---|---|
-| Type safety | `npm run typecheck` | 🔲 | |
-| Unit/component | `npm run test:run` | 🔲 | |
-| Build | `npm run build` | 🔲 | |
-| E2E | `npm run test:e2e` | 🔲 | |
-| State distinction | Matching observed before assignment | 🔲 | |
-| Persistence | Matching and assigned restore | 🔲 | |
-| Network boundary | Local-origin request assertion | 🔲 | |
-| Acceptance | Criteria above | 🔲 | |
+| Type safety | `npm run typecheck` | ✅ Pass | `tsc -b` exited 0 on 2026-10-04. |
+| Unit/component | `npm run test:run` | ✅ Pass | Vitest: 6 test files passed; 24 tests passed in 2.73s. |
+| Build | `npm run build` | ✅ Pass | Vite 7.3.6 transformed 47 modules and built in 2.46s. |
+| E2E | `npm run test:e2e` | ✅ Pass | Playwright: 2 passed in 4.6s; S2 screenshots captured under `test-results/`. |
+| State distinction | Matching observed before assignment | ✅ Pass | `MatchingAndAssignment.test.tsx` keeps matching through fake-timer 1199ms; `ride-request.spec.ts` visibly asserts matching before assignment. |
+| Persistence | Matching and assigned restore | ✅ Pass | `MatchingPersistence.test.tsx` verifies one Strict Mode assignment after restored matching and assigned-state restoration; Playwright reload restores Maya. |
+| Network boundary | Local-origin request assertion | ✅ Pass | Both Playwright specs collect non-local origins and assert `externalRequests` is `[]`. |
+| Acceptance | Criteria above | ✅ Pass | All 22 criteria below are covered by passing component, Playwright, and CSS/source evidence. |
 
 Use `✅ Pass`, `❌ Fail`, or `⏭️ N/A` when the sprint runs.
 
@@ -313,13 +313,13 @@ The driver does not arrive and the ride does not progress in this sprint. Those 
 
 ## Definition of Done
 
-- [ ] All acceptance criteria are met.
-- [ ] Every applicable Test Results Log row is populated and passing.
-- [ ] `docs/results/booking-s2.md` exists with screenshots and no hidden deviation.
-- [ ] `docs/Roadmap.md` identifies Booking S3 as next.
-- [ ] The prototype-derived distinction between matching and assignment is visible in the implementation and tests.
-- [ ] No material product or architecture decision was invented.
-- [ ] The accepted recovery commit exists with the required message.
+- [x] All acceptance criteria are met.
+- [x] Every applicable Test Results Log row is populated and passing.
+- [x] `docs/results/booking-s2.md` exists with screenshot paths and no hidden deviation.
+- [x] `docs/Roadmap.md` identifies Booking S3 as next.
+- [x] The prototype-derived distinction between matching and assignment is visible in the implementation and tests.
+- [x] No material product or architecture decision was invented.
+- [x] The accepted recovery commit exists with the required message.
 
 ## Next Step
 

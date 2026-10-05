@@ -165,6 +165,37 @@ h2 {
   list-style: none;
 }
 
+.destination-option {
+  display: grid;
+  grid-template-columns: 12px 1fr auto;
+  align-items: center;
+  width: 100%;
+  min-height: 52px;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid rgb(16 35 63 / 10%);
+  border-radius: 16px;
+  background: #fff8ec;
+  color: #10233f;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  text-align: left;
+}
+
+.destination-option:hover {
+  border-color: #4da3ff;
+  background: #fff;
+}
+
+.destination-option-action {
+  color: rgb(16 35 63 / 60%);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .landmark-card {
   display: grid;
   grid-template-columns: 12px 1fr auto;
@@ -218,6 +249,169 @@ h2 {
   font-weight: 900;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.matching-pulse {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  border: 3px solid #f24e3d;
+  border-radius: 50%;
+  background: rgb(242 78 61 / 18%);
+  transform: translate(-50%, -50%);
+  animation: matching-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes matching-pulse {
+  50% {
+    transform: translate(-50%, -50%) scale(1.28);
+    opacity: 0.58;
+  }
+}
+
+.supporting-copy,
+.review-route {
+  margin-bottom: 0;
+  color: rgb(16 35 63 / 76%);
+  font-weight: 700;
+}
+
+.review-route span {
+  margin: 0 3px;
+  color: #4da3ff;
+}
+
+.ride-option-card,
+.trip-summary-card,
+.driver-card {
+  margin: 16px 22px;
+  border: 1px solid rgb(16 35 63 / 10%);
+  border-radius: 18px;
+  background: #fff8ec;
+}
+
+.ride-option-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 17px;
+}
+
+.ride-option-name,
+.driver-name {
+  margin-bottom: 4px;
+  font-weight: 900;
+}
+
+.ride-option-copy,
+.driver-pedicab {
+  margin-bottom: 0;
+  color: rgb(16 35 63 / 72%);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.ride-option-fare,
+.driver-eta {
+  margin-bottom: 0;
+  color: #10233f;
+  font-weight: 900;
+  text-align: right;
+}
+
+.journey-actions {
+  display: grid;
+  gap: 10px;
+  padding: 0 22px;
+}
+
+.primary-action,
+.secondary-action {
+  min-height: 48px;
+  border-radius: 14px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+}
+
+.primary-action {
+  border: 1px solid #f24e3d;
+  background: #f24e3d;
+  color: #fff;
+}
+
+.primary-action:hover {
+  background: #d63c2d;
+}
+
+.secondary-action {
+  border: 1px solid rgb(16 35 63 / 16%);
+  background: #fff;
+  color: #10233f;
+}
+
+.trip-summary-card {
+  padding: 4px 16px;
+}
+
+.trip-summary-card dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0;
+}
+
+.trip-summary-card dl > div {
+  min-width: 0;
+  padding: 12px 0;
+  border-bottom: 1px solid rgb(16 35 63 / 9%);
+}
+
+.trip-summary-card dl > div:nth-child(odd) {
+  padding-right: 12px;
+}
+
+.trip-summary-card dl > div:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+.trip-summary-card dt {
+  margin-bottom: 3px;
+  color: rgb(16 35 63 / 62%);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.trip-summary-card dd {
+  overflow-wrap: anywhere;
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.driver-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+}
+
+.driver-avatar {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  background: #f5b642;
+  color: #10233f;
+  font-size: 0.72rem;
+  font-weight: 900;
 }
 
 .demo-controls {

@@ -23,7 +23,7 @@ test('renders the static PEDAL shell without external application requests', asy
   await expect(page.getByText('Oracle Park')).toBeVisible();
   await expect(page.getByTestId('static-city-map')).toBeVisible();
   await expect(page.getByTestId('demo-controls')).toHaveCount(0);
-  await expect(page.getByRole('button')).toHaveCount(0);
+  await expect(page.getByRole('button')).toHaveCount(3);
 
   expect(
     await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
