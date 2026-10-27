@@ -50,10 +50,12 @@ Every render starts with this block, filled verbatim from the artifacts. Do not 
 ```markdown
 > **Problem.** <the "The problem" section of docs/Vision.md, verbatim>
 >
-> **Success.** <the success definition for the scope's epic, verbatim. For Booking: "Success at the end of the Booking epic" in docs/Vision.md. For an epic with none: "Not yet defined. The epic is directional.">
+> **Success.** <the success definition for the scope's epic, verbatim. For Booking: the FIRST paragraph only of "Success at the end of the Booking epic" in docs/Vision.md. For an epic with none: "Not yet defined. The epic is directional.">
 >
 > **Stage.** <Exploring | Defined | Shipped>, per docs/Roadmap.md.
 ```
+
+"Verbatim" means a fixed extent, not a judgment call: the Problem is the whole "The problem" section (one paragraph); the Success is the first paragraph named above. Two runs of this skill for different readers must produce byte-identical headers.
 
 ## Rules
 
