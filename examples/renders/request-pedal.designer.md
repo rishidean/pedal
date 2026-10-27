@@ -28,22 +28,22 @@ rendered_on: 2026-10-26
 - **Review → destination.** "Change destination" returns to destination entry with destination and estimate cleared.
 - **Review → matching.** One tap on "Request PEDAL". The action is unavailable after the first valid submission; no double request.
 - **Matching → assigned.** Automatic after a fixed 1,200ms. The rider does nothing. Matching must always render as its own screen, even under reduced motion.
-- **Refresh.** Matching restores and schedules the assignment again; assigned restores with driver context.
-- **Demo mode (`?demo=1`).** A separate "Demo Controls" / "Teaching only" panel outside the rider frame may show the current state but offers no lifecycle action yet; it shows "Lifecycle controls arrive in Booking S3" or equivalent.
+- **Refresh.** Matching restores and reschedules assignment; assigned restores intact.
+- **Demo mode (`?demo=1`).** A separate "Demo Controls" / "Teaching only" panel outside the rider frame offers no lifecycle action yet ("Lifecycle controls arrive in Booking S3" or equivalent).
 
 ## Visual and tone constraints
 
 - **Palette.** Warm off-white canvas `#FFF8EC`, white cards, navy type `#10233F`, coral primary `#F24E3D`, golden status accent `#F5B642` (never color alone), sky blue `#4DA3FF` for route or location cues.
 - **Geometry.** Rounded cards and controls, 16–24px radii, one strong primary action per state, no bottom tabs.
 - **Tone.** Calm, direct, specific. Never claim real availability, precise arrival, or a guaranteed price.
-- **Never imply.** A live map, live radius, moving vehicle, real driver, or production dispatch. Map is static, with no provider attribution or map controls.
+- **Never imply.** A live map, live radius, moving vehicle, real driver, or production dispatch. No provider attribution or map controls.
 
 ## Edge behavior
 
-- **Empty.** Review cannot exist without a destination; matching cannot exist without destination and estimate.
-- **Invalid or stale data.** A malformed, unknown-version, or unknown-fixture saved ride fails closed to destination entry. No error screen is defined.
-- **Small screen.** Fully usable at 375px, one column, primary action reachable, no horizontal scroll. Wider screens center in a phone-like frame, not a dashboard.
-- **Accessibility.** Keyboard reachable, visible focus, 44px targets, WCAG AA contrast, status changes announced as text; matching uses a live region that does not repeatedly interrupt. Reduced motion gets an immediate or minimal matching animation.
+- **Empty.** No review without a destination; no matching without destination and estimate.
+- **Invalid or stale data.** A malformed or unknown saved ride fails closed to destination entry.
+- **Small screen.** Usable at 375px, one column, no horizontal scroll. Wider screens center in a phone-like frame, not a dashboard.
+- **Accessibility.** Keyboard reachable, visible focus, 44px targets, WCAG AA contrast, status changes announced as text via a live region that does not repeatedly interrupt. Reduced motion gets an immediate or minimal matching animation.
 
 ## Open questions
 
