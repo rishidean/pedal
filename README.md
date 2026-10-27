@@ -108,6 +108,10 @@ The implementation agent must preserve these boundaries:
 
 This checkpoint contains the Markdown specifications and the agent harness. It intentionally has no package manifest, source directory, test code, generated prototype code, environment file, backend, or application scaffold. Booking S1 creates the implementation foundation.
 
+## There is no PRD
+
+The artifacts above are the context. When someone needs a PRD, the `render-prd` skill (`.claude/skills/render-prd/`) generates one from `docs/` for a specific reader (designer, engineer, legal, marketing) and scope, shaped by how mature that scope is in the Roadmap. Renders are disposable: fix `docs/`, never the render. Sample output lives in [`examples/renders/`](./examples/renders/). The skill is read-only and is not part of the DEVELOPMENT harness.
+
 ## References
 
 - [`Vision`](./docs/Vision.md)
