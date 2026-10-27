@@ -31,7 +31,7 @@ Governing rule: "The app should not claim real availability, precise arrival, or
 |---|---|
 | Collected | Ride state only: stage, `pickupId` `current-location`, `destinationId`, fixed estimate, driver/pedicab fixture IDs, `requestedAt` (ISO timestamp). No account or identity record. |
 | Stored | Browser `localStorage` under `pedal.ride.v1`, written after every valid transition. |
-| Retention | Until reset or until a malformed record is cleared. A time limit is not defined in the context. |
+| Retention | Until reset, or cleared if malformed. Time limit: Not defined in the context. |
 | Location | Label only; "No permission, coordinates, or geolocation call" (MB-001). |
 | Sent anywhere | Nothing. "No the Booking epic application behavior requires a network request" (BR-014); E2E must record no external application request. |
 
