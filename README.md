@@ -127,6 +127,8 @@ Use render-prd for the engineer reader, scope Request PEDAL, from ride review th
 
 If a render is wrong, fix the artifact in `docs/` and render again. Never edit the render.
 
+For a step-by-step walkthrough with tested prompts and sample output, see [`examples/try-render-prd.md`](./examples/try-render-prd.md).
+
 ## References
 
 - [`Vision`](./docs/Vision.md)
