@@ -98,6 +98,41 @@ Realism is marked directional in the roadmap. The same lens comes back as decisi
 
 There is no transition table and no acceptance test for Realism itself. The only tests named are the Booking ones it must not break.
 
-### 6. What it means
+### 6. Fix the source, then render again
 
-You ran one skill over one set of files and got four different documents. The reader, the purpose, and how mature the scope is decided what each one contained. When a render is wrong or incomplete, you fix the file in `docs/` that it came from and render again. You never edit the render itself.
+The fare question from step 4 is a gap in `docs/`, not a flaw in the render. The `prd-correction` branch settles it: the estimated fare stays visible once a driver is assigned. Leave Claude Code, switch to that branch, and look at what changed:
+
+```bash
+git checkout prd-correction
+git diff prd-walkthrough prd-correction -- docs/
+```
+
+The decision touches four files in `docs/` and nothing else by hand. Start a new session with `claude` and ask the step 4 question again:
+
+```text
+Use render-prd with reader engineer, scope Request PEDAL, purpose open decisions.
+```
+
+The fare row is gone, in every test run. The timer row is still there, because nobody has decided it. The remaining rows from one run, with the other cells cut:
+
+```markdown
+| Delay after a refresh during `matching` | ... |
+| Persisted record whose fields contradict its stage | ... |
+| Demo Controls text during this moment, under `?demo=1` | ... |
+```
+
+Other readers pick up the same decision without being told. Ask for the designer's contract:
+
+```text
+Use render-prd with reader designer, scope Request PEDAL.
+```
+
+```markdown
+3. "3 min" replaces the "4 min" pickup estimate. The "$18" estimated fare stays.
+```
+
+The sample renders in `examples/renders/` on this branch were regenerated the same way. Nobody edited them.
+
+### 7. What it means
+
+You ran one skill over one set of files and got four different documents. The reader, the purpose, and how mature the scope is decided what each one contained. When a render was incomplete, the fix went into `docs/`, and every reader's next render picked it up. You never edit the render itself.
