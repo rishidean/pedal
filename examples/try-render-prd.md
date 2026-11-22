@@ -1,93 +1,102 @@
 ## Appendix: Try it on PEDAL
 
-PEDAL is a teaching repository: a deliberately basic pedicab-hailing app with one rider, one trip, and no backend. It has no PRD. The vision, functional brief, rider flows, business rules, roadmap, and sprint specs in `docs/` are the maintained product context. A small skill, `render-prd`, reads them and produces a PRD for one reader and one scope. Each run is generated fresh, so your output will be worded differently from the excerpts below. The substance should match.
+PEDAL is a teaching repository: a deliberately basic pedicab-hailing app with one rider, one trip, and no backend. It has no PRD. The vision, functional brief, rider flows, business rules, roadmap, and sprint specs in `docs/` are the maintained product context. A small skill, `render-prd`, reads them and produces a PRD for one reader, one scope, and one purpose. Each run is generated fresh, so your wording will differ from the excerpts below. The substance should match.
 
 ### 1. Do this
 
-You need git and Claude Code.
+You need git and Claude Code. Clone the `prd-walkthrough` tag so your context matches the one these excerpts came from:
 
 ```bash
-git clone https://github.com/rishidean/pedal.git
+git clone --branch prd-walkthrough https://github.com/rishidean/pedal.git
 cd pedal
 claude
 ```
 
-Accept the trust prompt for the folder. Then ask for the engineer's view of the moment the rider taps Request PEDAL:
+Git will say you are in a detached HEAD state. That is expected for a tag. Accept the trust prompt for the folder, then ask for the engineer's view of the moment the rider taps Request PEDAL:
 
 ```text
-Use render-prd for the engineer reader, scope Request PEDAL, from ride review through driver assigned.
+Use render-prd with reader engineer, scope Request PEDAL.
 ```
-
-Keep the "from ride review through driver assigned" part. With a bare `Request PEDAL`, the skill sometimes reads the scope as the tap alone and leaves out driver assignment.
 
 ### 2. You should get
 
-A one-page contract with front matter, a header for problem, success and stage, then states, invariants, timing, boundaries, proof, and open questions. Stage reads `Defined`. Two excerpts from one run, the transition table and the test that proves it:
+A one-page contract. The skill resolves the moment to a fixed range, from the screen with the button to the next state that waits on the rider. Stage reads `Defined`. Excerpts from one run, the transition table and the test that proves it:
 
 ```markdown
+# Request PEDAL (ride_review → driver_assigned), for engineer
+...
 | Rule | From | Event | Guard | Effect | To |
 |---|---|---|---|---|---|
-| TR-003 | `ride_review` | `REQUEST_RIDE` (`now: string`, ISO) | Destination and estimate present | Store `requestedAt`; keep request context | `matching` |
-| TR-004 | `matching` | `ASSIGN_DRIVER` | Valid matching state | Set `maya-chen`, `pedal-14`, `assignedEtaMinutes: 3` | `driver_assigned` |
+| TR-003 | `ride_review` | `REQUEST_RIDE` (`now`: ISO timestamp from the application boundary) | Destination and estimate are present | Store `requestedAt`; preserve pickup, destination, `4 min`, `$18`; persist | `matching` |
+| TR-004 | `matching` | `ASSIGN_DRIVER` (automatic mock) | Valid matching state | Set `driverId: 'maya-chen'`, `pedicabId: 'pedal-14'`, `assignedEtaMinutes: 3`; persist | `driver_assigned` |
 ...
-## Proof
-- **Unit tests (fake timers):** state is still `matching` at 1199ms, then becomes Maya Chen / PEDAL 14 / 3 min. A restored `matching` state schedules only one assignment.
+- At 1199ms the state remains matching; after the canonical delay it assigns the fixture driver.
 ```
 
 ### 3. Now try: the same moment for legal
 
 ```text
-Use render-prd for the legal reader, scope Request PEDAL, from ride review through driver assigned.
+Use render-prd with reader legal, scope Request PEDAL.
 ```
 
 Excerpt:
 
 ```markdown
-| Driver assigned | `Maya is on the way` / `Maya Chen`, `PEDAL 14`, `3 min away` | No. The docs call it the "Pickup ETA" |
+| `driver_assigned` | `Driver assigned`, `Maya is on the way` | No. Fixture driver: "No driver account, location, contact, or acceptance action" (MB-006). |
 ...
-| Stored | Browser `localStorage` under `pedal.ride.v1`, written "after every valid state transition" |
-| Sent anywhere | Nothing. BR-014: no network request. Tests check that "no external application request" is made |
+The Functional Brief states: "The app should not claim real availability, precise arrival, or a guaranteed price," and "Labels such as `Mock ride` do not need to appear throughout the rider UI."
 ...
-Requesting a ride "does not create a payment authorization" (Flows 2).
+- **Stored:** browser `localStorage` under `pedal.ride.v1`, written "After every valid state transition".
 ...
-- Whether to say that `Maya Chen` is a fictional driver: Not defined in the context. FunctionalBrief says `Mock ride` labels "do not need to appear".
+The request "does not create a payment authorization, driver record, network request, map route, notification, or cancellation entitlement."
 ```
 
-What's different: the header is word for word the same as the engineer's, but the body covers what the rider is told, what data stays in the browser, and what happens with money, and the open question is whether to disclose that the driver is simulated.
+What's different: the header is word for word the same as the engineer's, but the body covers what the rider is told, what data stays in the browser, and what happens with money. It also reports a decision the docs already made: the driver is a fixture, and the rider UI does not have to label it as a mock.
 
 ### 4. Try a different purpose
 
-Ask the engineer view only for what is still undecided:
+The default purpose is `contract`: what is true now. Ask instead for what still needs a call:
 
 ```text
-Use render-prd for the engineer reader, scope Request PEDAL, from ride review through driver assigned. Show only what still needs a decision.
+Use render-prd with reader engineer, scope Request PEDAL, purpose open decisions.
 ```
 
-The timer contract drops out, and the first open question is what happens to the timer after a page reload:
+The contract drops out. What's left is a table of places where two builds could both satisfy the docs and still behave differently. One of them is whether the fare still shows once a driver is assigned. From one run, with the other cells cut:
 
 ```markdown
-## Open questions
-
-- **Restored matching delay:** full `1200` ms after load, or the time left since `requestedAt`?
+# Request PEDAL (ride_review → driver_assigned), for engineer, open decisions
+...
+| Whether the fare shows on the driver-assigned screen | ... | The ETA is settled (`3 min away` replaces `4 min`); the fare is not. Result A: `$18` stays visible at `driver_assigned`. Result B: the fare drops out until `ride_in_progress`. ... |
 ```
+
+Another is the matching timer after a page reload:
+
+```markdown
+| How long matching lasts after a refresh | ... | Whether the delay counts from restoration or from `requestedAt`. Result A: every reload shows `Finding a nearby pedicab` for a full `1200ms`. Result B: the reload waits only the remainder, so a reload after 1,200ms assigns at once. ... |
+```
+
+Both items appeared in every test run. Their order and the rest of the list changed from run to run.
 
 ### 5. Try an immature scope
 
 ```text
-Use render-prd for the engineer reader, scope Realism.
+Use render-prd with reader engineer, scope Realism.
 ```
 
-Realism is marked directional in the roadmap. The render says so in the header, then lists the decisions it is waiting on instead of a contract:
+Realism is marked directional in the roadmap. The same lens comes back as decisions and open questions instead of a contract. The header and section headings from one run:
 
 ```markdown
 > **Success.** Not yet defined. The epic is directional.
 >
 > **Stage.** Exploring, per docs/Roadmap.md.
-
-None of the candidate sprints can be executed. Each Realism question needs fresh Discovery and Definition before any sprint can move to ready.
+...
+## Integrations implied
+## Architecture decisions waiting on product decisions
+## What must not regress
+## Open questions
 ```
 
-The body lists the mocks Realism would replace, the product decisions each one waits on (cancellation policy, no-driver timeout, location provider, payment boundary), what must not regress, and open questions. It has no transition table and no acceptance tests.
+There is no transition table and no acceptance test for Realism itself. The only tests named are the Booking ones it must not break.
 
 ### 6. What it means
 
