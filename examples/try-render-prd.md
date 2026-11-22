@@ -27,10 +27,10 @@ A one-page contract. The skill resolves the moment to a fixed range, from the sc
 ...
 | Rule | From | Event | Guard | Effect | To |
 |---|---|---|---|---|---|
-| TR-003 | `ride_review` | `REQUEST_RIDE` (`now: string`) | Destination and estimate are present | Store request timestamp; preserve request context | `matching` |
-| TR-004 | `matching` | `ASSIGN_DRIVER` (automatic, 1200ms) | Valid matching state | Assign Maya Chen, PEDAL 14, and 3-minute ETA | `driver_assigned` |
+| TR-003 | `ride_review` | `REQUEST_RIDE` (`now`: ISO timestamp from the application boundary) | Destination and estimate are present | Store `requestedAt`; preserve pickup, destination, `4 min`, `$18`; persist | `matching` |
+| TR-004 | `matching` | `ASSIGN_DRIVER` (automatic mock) | Valid matching state | Set `driverId: 'maya-chen'`, `pedicabId: 'pedal-14'`, `assignedEtaMinutes: 3`; persist | `driver_assigned` |
 ...
-- The state is still matching at 1199ms and assigns the fixture driver after the canonical delay.
+- At 1199ms the state remains matching; after the canonical delay it assigns the fixture driver.
 ```
 
 ### 3. Now try: the same moment for legal
@@ -42,16 +42,16 @@ Use render-prd with reader legal, scope Request PEDAL.
 Excerpt:
 
 ```markdown
-| `Maya is on the way`, `Maya Chen`, `PEDAL 14` | driver_assigned | Fixture driver (MB-006) |
+| `driver_assigned` | `Driver assigned`, `Maya is on the way` | No. Fixture driver: "No driver account, location, contact, or acceptance action" (MB-006). |
 ...
-- **Stored:** one `PedalState` record in browser `localStorage` under `pedal.ride.v1`, written after every valid transition.
+The Functional Brief states: "The app should not claim real availability, precise arrival, or a guaranteed price," and "Labels such as `Mock ride` do not need to appear throughout the rider UI."
 ...
-Tapping `Request PEDAL` "does not create a payment authorization".
+- **Stored:** browser `localStorage` under `pedal.ride.v1`, written "After every valid state transition".
 ...
-- Whether the default rider view needs any disclosure that the ride is simulated. The context only says one is not required.
+The request "does not create a payment authorization, driver record, network request, map route, notification, or cancellation entitlement."
 ```
 
-What's different: the header is word for word the same as the engineer's, but the body covers what the rider is told, what data stays in the browser, and what happens with money, and it asks whether the simulated driver needs disclosing.
+What's different: the header is word for word the same as the engineer's, but the body covers what the rider is told, what data stays in the browser, and what happens with money. It also reports a decision the docs already made: the driver is a fixture, and the rider UI does not have to label it as a mock.
 
 ### 4. Try a different purpose
 
@@ -61,19 +61,21 @@ The default purpose is `contract`: what is true now. Ask instead for what still 
 Use render-prd with reader engineer, scope Request PEDAL, purpose open decisions.
 ```
 
-The contract drops out. What's left is a table of undecided items, led by what happens to the matching timer after a page reload:
+The contract drops out. What's left is a table of places where two builds could both satisfy the docs and still behave differently. One of them is whether the fare still shows once a driver is assigned. From one run, with the other cells cut:
 
 ```markdown
 # Request PEDAL (ride_review → driver_assigned), for engineer, open decisions
 ...
-The defined contract (TR-003/TR-004 effects, the `1200ms` delay, the one-assignment guard, the Strict Mode protection, fixtures and copy) is not repeated here. Use `purpose contract` to get it.
-
-## Open questions
-
-- On restore, does `matching` wait a fresh `1200ms` or the time remaining since `requestedAt`?
+| Whether the fare shows on the driver-assigned screen | ... | The ETA is settled (`3 min away` replaces `4 min`); the fare is not. Result A: `$18` stays visible at `driver_assigned`. Result B: the fare drops out until `ride_in_progress`. ... |
 ```
 
-The list can be longer or shorter from run to run. The timer question came first in every test run.
+Another is the matching timer after a page reload:
+
+```markdown
+| How long matching lasts after a refresh | ... | Whether the delay counts from restoration or from `requestedAt`. Result A: every reload shows `Finding a nearby pedicab` for a full `1200ms`. Result B: the reload waits only the remainder, so a reload after 1,200ms assigns at once. ... |
+```
+
+Both items appeared in every test run. Their order and the rest of the list changed from run to run.
 
 ### 5. Try an immature scope
 
