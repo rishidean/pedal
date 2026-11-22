@@ -135,4 +135,4 @@ The sample renders in `examples/renders/` on this branch were regenerated the sa
 
 ### 7. What it means
 
-You ran one skill over one set of files and got four different documents. The reader, the purpose, and how mature the scope is decided what each one contained. When a render was incomplete, the fix went into `docs/`, and every reader's next render picked it up. You never edit the render itself.
+You ran one skill over one set of files and got a different document each time. The reader, the purpose, and how mature the scope is decided what each one contained. When a render was incomplete, the fix went into `docs/`, and every reader's next render picked it up. You never edit the render itself.
