@@ -36,7 +36,19 @@ If the reader has no lens file, stop and say which lenses exist. Do not improvis
 | `contract` | What is true now, so I can act on it? | The lens body for the stage, as written in the lens file. |
 | `open decisions` | What still needs a call before I can act? | Only what the context leaves undecided for this scope, seen through the lens. Do not restate the defined contract. |
 
-For `open decisions`, replace the lens body with one table: decision · what the artifacts say (quoted) · what they leave silent · what it blocks for this reader. Include an item only if it is silent, ambiguous, or listed as deferred in `docs/`, and only if this reader's lens would need it decided. Use the lens's **Leave out** section to drop items that do not matter to this reader. If nothing qualifies, write `No open decisions in scope.`
+For `open decisions`, replace the lens body with one table: decision · what the artifacts say (quoted) · what they leave silent · what it blocks for this reader. If nothing qualifies, write `No open decisions in scope.`
+
+An item goes in the table only if it passes all three tests:
+
+1. **Anchored.** An artifact statement in scope raises it: the statement is ambiguous, defers the answer, or cannot be applied without it. Quote that statement. Do not raise scenarios no artifact mentions.
+2. **Blocking.** The "what it blocks" cell names something concrete in `docs/` that this reader cannot finish without the answer: an acceptance criterion, a required test, a rider-facing copy string, or a rule ID. If you cannot name one, drop the item.
+3. **In the lens.** The lens's body sections would need it. Use the lens's **Leave out** section to drop the rest.
+
+Choices the artifacts leave to the builder are not open decisions. Neither are items owned by a sprint outside the scope. Order the table by how much each item blocks, most first.
+
+For an **Exploring** scope, `open decisions` is the lens's decisions section alone, in the same table form. Drop the lens's other Exploring sections.
+
+The same tests govern the **Open questions** section under either purpose: list a question only when writing the body hit a gap that is anchored and blocking. Do not brainstorm.
 
 ## Resolving a named moment
 
