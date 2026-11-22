@@ -41,14 +41,14 @@ For `open decisions`, replace the lens body with one table: decision · what the
 An item goes in the table only if it passes all three tests:
 
 1. **Anchored.** An artifact statement in scope raises it: the statement is ambiguous, defers the answer, or cannot be applied without it. Quote that statement. Do not raise scenarios no artifact mentions.
-2. **Blocking.** The "what it blocks" cell names something concrete in `docs/` that this reader cannot finish without the answer: an acceptance criterion, a required test, a rider-facing copy string, or a rule ID. If you cannot name one, drop the item.
+2. **Divergent.** Two people could each satisfy every artifact and still produce results that differ in a way a rider, a test, or an outside reader would observe. Name both results in the "leave silent" cell. If every artifact-compliant result looks the same from outside, drop the item. An item passes this test even when every acceptance criterion would pass under either result; that is what makes it open.
 3. **In the lens.** The lens's body sections would need it. Use the lens's **Leave out** section to drop the rest.
 
-Choices the artifacts leave to the builder are not open decisions. Neither are items owned by a sprint outside the scope. Order the table by how much each item blocks, most first.
+Do not drop an item because one reading seems more natural; if the artifacts permit both, it is open. Drop it only when an artifact states the answer or says in so many words that the choice is not a product decision. Items owned by a sprint outside the scope are not in the table. Order the table by how visible the divergence is to the rider, most first.
 
 For an **Exploring** scope, `open decisions` is the lens's decisions section alone, in the same table form. Drop the lens's other Exploring sections.
 
-The same tests govern the **Open questions** section under either purpose: list a question only when writing the body hit a gap that is anchored and blocking. Do not brainstorm.
+The same tests govern the **Open questions** section under either purpose: list a question only when writing the body hit a gap that is anchored and divergent. Do not brainstorm.
 
 ## Resolving a named moment
 
