@@ -110,19 +110,20 @@ This checkpoint contains the Markdown specifications and the agent harness. It i
 
 ## There is no PRD
 
-The artifacts above are the context. When someone needs a PRD, the `render-prd` skill (`.claude/skills/render-prd/`) generates one from `docs/` for a specific reader (designer, engineer, legal, marketing) and scope, shaped by how mature that scope is in the Roadmap. Renders are disposable: fix `docs/`, never the render. Sample output lives in [`examples/renders/`](./examples/renders/). The skill is read-only and is not part of the DEVELOPMENT harness.
+The artifacts above are the context. When someone needs a PRD, the `render-prd` skill (`.claude/skills/render-prd/`) generates one from `docs/` for a specific reader (designer, engineer, legal, marketing), scope, and purpose, shaped by how mature that scope is in the Roadmap: `PRD = f(context, when, who, why)`. Renders are disposable: fix `docs/`, never the render. Sample output lives in [`examples/renders/`](./examples/renders/). The skill is read-only and is not part of the DEVELOPMENT harness.
 
 ## Rendering a PRD
 
-Open Claude Code at the repository root and ask for a reader and a scope:
+Open Claude Code at the repository root and ask for a reader and a scope, and optionally a purpose:
 
 ```text
-Use render-prd for the engineer reader, scope Request PEDAL, from ride review through driver assigned.
+Use render-prd with reader engineer, scope Request PEDAL.
+Use render-prd with reader engineer, scope Request PEDAL, purpose open decisions.
 ```
 
 - **Reader** is any lens in `.claude/skills/render-prd/lenses/`: `designer`, `engineer`, `legal`, `marketing`.
-- **Scope** can be a moment, a flow, a sprint, or an epic (`Request PEDAL`, `Flow 3`, `Booking S2`, `Realism`). Name the start and end state for a moment; a bare `Request PEDAL` may be read as the tap alone.
-- **Purpose** is free text after the request, for example `Show only what still needs a decision.`
+- **Scope** can be a moment, a flow, a sprint, or an epic (`Request PEDAL`, `Flow 3`, `Booking S2`, `Realism`). A moment named after a rider action resolves to a fixed range, from the screen that shows the control to the next state that waits on the rider. `Request PEDAL` is `ride_review → driver_assigned`.
+- **Purpose** is `contract` (the default: what is true now) or `open decisions` (what still needs a call).
 - The render prints in the conversation. Ask for a path if you want it written to a file.
 
 If a render is wrong, fix the artifact in `docs/` and render again. Never edit the render.

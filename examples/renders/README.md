@@ -5,7 +5,7 @@ These files are **snapshots**, not sources. Each was produced by the `render-prd
 PEDAL has no PRD. It has context, and a PRD is a query against it:
 
 ```
-PRD = f(context, when, who)
+PRD = f(context, when, who, why)
 ```
 
 | File | Reader | Scope | Stage |
@@ -22,4 +22,4 @@ Read the four `request-pedal` files side by side: same feature, same source, fou
 
 - **Don't edit these.** If a render is wrong, fix the artifact in `docs/` and render again.
 - **Don't read them as context.** Agents building PEDAL read `docs/`; the skill is told never to read this folder.
-- **Regenerate freely.** In Claude Code, from the repo root: *"Use render-prd for the legal reader, scope Booking S3."* Any reader with a file in `.claude/skills/render-prd/lenses/` works, and adding a reader is one new file.
+- **Regenerate freely.** In Claude Code, from the repo root: *"Use render-prd with reader legal, scope Booking S3."* Any reader with a file in `.claude/skills/render-prd/lenses/` works, and adding a reader is one new file.
