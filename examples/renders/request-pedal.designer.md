@@ -2,9 +2,9 @@
 reader: designer
 scope: Request PEDAL
 purpose: contract
-covers: Request PEDAL (ride_review → driver_assigned); states `ride_review`, `matching`, `driver_assigned`; Flow 2 (request behavior), Flow 3; TR-003, TR-004; BR-004 to BR-007; MB-003 to MB-006; Booking S2 Parts 2–4
+covers: states ride_review → matching → driver_assigned; Flows 2–3; TR-003, TR-004; BR-004–BR-007, BR-013; MB-003–MB-006; Booking S2 (Parts 2–4)
 stage: Defined
-rendered_from: 6508905
+rendered_from: fcebfdc
 rendered_on: 2026-11-22
 ---
 
@@ -18,45 +18,39 @@ rendered_on: 2026-11-22
 
 ## Screens in order
 
-| State | What the rider sees | Actions | Deliberately absent |
+| State | What the rider sees | Actions available | Deliberately absent |
 |---|---|---|---|
-| Ride review (`ride_review`) | Headline "Your PEDAL"; "Pickup in 4 min · Estimated fare $18"; pickup "Current location"; selected destination (canonical "Ferry Building"); one "PEDAL" card | "Request PEDAL" (primary). "Change destination" exists but is outside this moment | Payment method, promo code, surge, scheduling, ride types, confirmation modal |
-| Matching (`matching`) | "Finding a nearby pedicab"; "This usually takes less than a minute"; compact trip summary with pickup, destination, "4 min", "$18"; restrained, non-geographic search treatment on the static map | None | Cancel, retry, driver count, live radius, moving vehicle |
-| Driver assigned (`driver_assigned`) | Status "Driver assigned"; headline "Maya is on the way"; driver card "Maya Chen", "PEDAL 14", "3 min away"; "Current location" → selected destination; static route treatment | None in the default view | Call, message, cancel, payment, rating, photo, license, live location, moving driver |
+| Ride review (`ride_review`) | Headline "Your PEDAL"; "Pickup in 4 min · Estimated fare $18"; pickup "Current location"; selected destination (canonical: "Ferry Building"); one "PEDAL" card; "4 min"; "Estimated fare $18" | "Request PEDAL" (primary). "Change destination" is out of this scope. | Payment method, promo code, surge, scheduling, ride types, confirmation modal |
+| Matching (`matching`) | "Finding a nearby pedicab"; "This usually takes less than a minute"; pickup, destination, "4 min" and "$18" in a compact trip summary; restrained, non-geographic search treatment on the static map | None | Cancel, retry, driver count, live radius, moving vehicle |
+| Driver assigned (`driver_assigned`) | Status "Driver assigned"; headline "Maya is on the way"; "PEDAL 14 · 3 min away"; driver card "Maya Chen", "PEDAL 14", "3 min away"; "Current location" → selected destination; "Estimated fare $18"; static route treatment | None in the default view | Call, message, cancel, payment, rating, driver photo, license, live vehicle or location |
 
 ## Transitions the rider feels
 
-- Tapping "Request PEDAL" goes straight to Matching. The button cannot be used twice. A submitted request is matching, not assigned.
-- Matching lasts a fixed, mocked 1,200ms, then becomes Driver assigned automatically.
-- On assignment, "3 min" replaces the "4 min" pickup estimate.
-- Driver assigned waits. The next step is a driver-side event the rider cannot trigger; it arrives through Demo Controls (`?demo=1` only, outside the rider frame).
+- Tapping "Request PEDAL" opens matching, not assignment. The button is disabled after the first valid tap.
+- After a fixed 1,200ms mock delay (a timer, not dispatch), matching becomes driver assigned on its own.
+- On assignment, "3 min" replaces the "4 min" pickup estimate; the "$18" estimated fare stays.
+- Driver assigned then waits; no rider action advances it.
 
 ## Visual and tone constraints
 
-- More Modern & Minimal Hot Wheel City: canvas `#FFF8EC`, white cards, restrained shadows; navy `#10233F` rounded sans type; 16–24px radii.
-- One strong primary action per state, coral `#F24E3D` with white text. No bottom tabs.
-- Status accent `#F5B642`, always paired with text or icon. Sky blue `#4DA3FF` for route or location cues.
-- Map is a local static illustration: no pan, zoom, provider attribution, live marker, or computed route.
-- Motion: short status transitions and a restrained matching animation.
+- Language: "More Modern & Minimal Hot Wheel City". Canvas `#FFF8EC` with white cards; type `#10233F`; primary action `#F24E3D` with white text; status accent `#F5B642`, never colour alone; `#4DA3FF` for route or location cues; 16–24px radii.
+- One strong primary action per state. No bottom tabs.
 - Copy is calm, direct, specific. Never claim real availability, precise arrival, or a guaranteed price.
-- Never imply a live radius, driver supply, or a real driver: Maya Chen and PEDAL 14 are fixtures; matching is a timer.
+- The map is a static illustration: no pan, zoom, provider attribution, live marker, or moving driver. Maya Chen and PEDAL 14 are fixtures.
+- Motion: short status transitions and a restrained matching animation.
 
 ## Edge behavior
 
-| Case | Behavior |
-|---|---|
-| Refresh on any of the three screens | Restores that screen. Restored Matching schedules its assignment again, once |
-| Invalid or unknown saved ride | Cleared; rider lands on destination entry. No crash |
-| Reduced motion | Decorative animation may be removed; the Matching screen still appears and the 1,200ms is unchanged |
-| Announcements | Matching is announced through a semantic live region, without repeated interruption; status never by color or animation alone |
-| Small screen | Fully usable at 375px, one column, no horizontal scroll, primary action reachable |
-| Wider screen | Phone-like max-width frame; not a dashboard |
-| Controls | Keyboard reachable, visible focus, 44px targets, WCAG AA contrast |
-| Empty state | None: review requires a destination and estimate |
+- **Refresh:** each screen restores. Restored matching runs the 1,200ms delay again, once.
+- **Invalid or stale saved data:** dropped; the app opens at destination entry.
+- **Empty states:** none; review cannot be reached without a destination and the estimate.
+- **Reduced motion:** decorative animation may be removed; the matching screen still appears and the delay is unchanged.
+- **Small screens:** one column, usable at 375px, no horizontal scrolling.
+- **Accessibility:** keyboard reachable with visible focus; WCAG AA contrast; 44px minimum targets; status changes announced in text and a semantic live region.
+- **`?demo=1`:** a "Demo Controls" / "Teaching only" panel sits outside the rider frame; it is not rider UI.
 
 ## Open questions
 
-- Matching says pickup, destination, "`4 min`, and `$18` remain visible" but gives no label wording. Not defined in the context: whether the summary repeats "Pickup in 4 min · Estimated fare $18" or shows bare values.
-- Driver assigned lists trip context as "`Current location` → selected destination". Not defined in the context: whether "$18" stays visible on this screen or drops until ride in progress.
+- The ride-review contract lists no map, while matching is drawn "on the static map" and assigned has a "static route treatment". Whether ride review shows the static map is not defined in the context; a review screen with and without it both comply.
 
-<sub>Sources: README.md (Artifact map, Rendering a PRD); docs/Vision.md (The problem, Success at the end of the Booking epic); docs/FunctionalBrief.md (Request and matching, Screen inventory, Visual language, Content and tone, Accessibility and responsive behavior); docs/Flows.md (Flow 2, Flow 3, Flow 4 demo-mode entry, Persistence and refresh flow, Transition guardrails); docs/BusinessRules.md (Canonical fixtures, Transition rules, Business rules and invariants, Matching timer rules, Mock boundaries); docs/Roadmap.md (Catalog, Sprints — Booking); docs/specs/booking/S2-Ride-Request.md (Parts 2–4, Acceptance Criteria)</sub>
+<sub>Sources: docs/Vision.md (The problem; Success at the end of the Booking epic); docs/FunctionalBrief.md (Request and matching; Screen inventory; Visual language; Content and tone; Accessibility and responsive behavior); docs/Flows.md (Flow 2; Flow 3; Persistence and refresh flow; Transition guardrails); docs/BusinessRules.md (Canonical fixtures; Transition rules; Business rules and invariants; Matching timer rules; Mock boundaries; Demo Controls rules); docs/Roadmap.md (Catalog; Sprints — Booking); docs/specs/booking/S2-Ride-Request.md (Parts 2–4; Acceptance Criteria)</sub>
