@@ -110,6 +110,7 @@ Unit tests may use fake timers. End-to-end tests may wait for the named assigned
 | Headline | `Maya is on the way` |
 | Driver card | `Maya Chen`, `PEDAL 14`, `3 min away` |
 | Trip context | `Current location` → selected destination |
+| Fare | `Estimated fare $18` remains visible |
 | Map | Static route treatment; no moving driver |
 | Rider actions | None in the default view |
 

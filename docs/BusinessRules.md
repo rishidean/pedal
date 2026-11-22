@@ -67,7 +67,7 @@ The TypeScript is a normative shape, not application code at `defined`. Booking 
 | `pedal-estimate` | Estimate | `4 min`, `$18` | Appears after valid destination selection; never recalculated |
 | `maya-chen` | Driver | `Maya Chen` | Must not exist in state before assignment |
 | `pedal-14` | Pedicab | `PEDAL 14` | Assigned only with Maya Chen |
-| `assigned-eta` | ETA | `3 min` | Replaces the pre-request pickup estimate after assignment |
+| `assigned-eta` | ETA | `3 min` | Replaces the pre-request pickup estimate after assignment; the `$18` estimated fare stays displayed |
 
 ## Events
 

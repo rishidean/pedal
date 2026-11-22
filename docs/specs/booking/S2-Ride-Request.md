@@ -179,6 +179,7 @@ Reduced-motion preference may remove decorative animation. It may not skip the r
 | Pedicab | `PEDAL 14` |
 | Pickup ETA | `3 min away` |
 | Trip context | `Current location` → selected destination |
+| Fare | `Estimated fare $18` |
 | Map | Static route treatment with no moving vehicle |
 
 `DriverCard.tsx` reads the canonical driver and pedicab fixtures by ID. It must not accept arbitrary remote data or display call, message, rating, photo URL, license, cancel, or live-location controls.
@@ -194,7 +195,7 @@ When `?demo=1` is present, Demo Controls may display the current `driver_assigne
 | Test file | Required assertions |
 |---|---|
 | `DestinationAndReview.test.tsx` | All fixture destinations render; each selection creates the correct review context; Ferry Building shows 4 min and `$18`; change destination resets; no free-form address or payment method exists |
-| `MatchingAndAssignment.test.tsx` | Request renders matching first; matching copy and trip context are present; fake timer at 1199ms remains matching; timer completion assigns Maya Chen/PEDAL 14/3 min; no call, chat, cancel, or payment control exists |
+| `MatchingAndAssignment.test.tsx` | Request renders matching first; matching copy and trip context are present; fake timer at 1199ms remains matching; timer completion assigns Maya Chen/PEDAL 14/3 min; `Estimated fare $18` stays visible after assignment; no call, chat, cancel, or payment control exists |
 | `MatchingPersistence.test.tsx` | Matching persists; restored matching schedules one assignment; assigned state restores with driver context; duplicate timers do not create repeated effects |
 
 Use fake timers for timer boundaries and return to real timers after each test.
@@ -255,7 +256,7 @@ Do not modify fixture values or business rules to make implementation easier. If
 ### Driver assignment
 
 - [ ] Assignment displays Maya Chen, PEDAL 14, and `3 min away`.
-- [ ] Pickup and destination remain visible.
+- [ ] Pickup, destination, and `Estimated fare $18` remain visible.
 - [ ] No call, chat, cancel, payment, rating, or live-location control exists.
 - [ ] Refresh restores the assigned state.
 - [ ] Booking S2 exposes no lifecycle transition button in either default or demo mode.

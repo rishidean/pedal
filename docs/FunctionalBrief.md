@@ -34,7 +34,7 @@ The rider cannot type an arbitrary address in the Booking epic. The apparent des
 
 Tapping **Request PEDAL** creates a local ride request and enters `matching`. The screen says **Finding a nearby pedicab**, preserves the selected destination and estimate, and uses a stylized search treatment that does not imply a live radius or moving vehicle.
 
-After a deterministic 1,200ms delay, the app assigns the canonical driver and enters `driver_assigned`. The screen says **Maya is on the way**, displays Maya Chen, PEDAL 14, the 3-minute ETA, pickup, and destination, and carries no call, chat, cancel, or live-location action.
+After a deterministic 1,200ms delay, the app assigns the canonical driver and enters `driver_assigned`. The screen says **Maya is on the way**, displays Maya Chen, PEDAL 14, the 3-minute ETA, pickup, destination, and the `$18` estimated fare, and carries no call, chat, cancel, or live-location action.
 
 ### Ride lifecycle
 
@@ -53,7 +53,7 @@ The completion screen says **You’ve arrived**, shows the Ferry Building, shows
 | **Destination entry** | Brand, current pickup, destination selector, Union Square, Ferry Building, Oracle Park, static map | Select destination | Account avatar, live pin, ride types |
 | **Ride review** | Pickup, destination, PEDAL option, 4-minute estimate, `$18` fare | Request PEDAL; return to destination selection | Payment method, promo code, surge, scheduling |
 | **Matching** | Matching headline, request context, static search treatment | Automatic assignment | Cancel, retry, driver count, live radius |
-| **Driver assigned** | Maya Chen, PEDAL 14, 3-minute ETA, pickup, destination | Demo-mode arrival only | Call, message, cancel, live vehicle |
+| **Driver assigned** | Maya Chen, PEDAL 14, 3-minute ETA, pickup, destination, `$18` estimated fare | Demo-mode arrival only | Call, message, cancel, live vehicle |
 | **Driver arrived** | Arrival headline, driver and pedicab, pickup point, destination | Demo-mode start only | PIN, contact, wait fees |
 | **Ride in progress** | Destination, static route treatment, `$18` estimate | Demo-mode completion only | Route editing, live progress, safety tools |
 | **Ride complete** | Arrival confirmation, Ferry Building, `$18`, direct-payment instruction | Start another ride | Card charge, tip, receipt, rating |
