@@ -41,7 +41,7 @@ rendered_on: 2026-11-22
 
 ## Edge behavior
 
-- **Refresh:** each screen restores. Restored matching runs the 1,200ms delay again, once.
+- **Refresh:** restore the current screen. If it was `matching`, schedule exactly one assignment transition after restoration.
 - **Invalid or stale saved data:** dropped; the app opens at destination entry.
 - **Empty states:** none; review cannot be reached without a destination and the estimate.
 - **Reduced motion:** decorative animation may be removed; the matching screen still appears and the delay is unchanged.
@@ -51,6 +51,7 @@ rendered_on: 2026-11-22
 
 ## Open questions
 
+- After a refresh during `matching`, should the full 1,200ms delay restart, or should matching resume with the remaining time from `requestedAt`? Not defined in the context.
 - The ride-review contract lists no map, while matching is drawn "on the static map" and assigned has a "static route treatment". Whether ride review shows the static map is not defined in the context; a review screen with and without it both comply.
 
 <sub>Sources: docs/Vision.md (The problem; Success at the end of the Booking epic); docs/FunctionalBrief.md (Request and matching; Screen inventory; Visual language; Content and tone; Accessibility and responsive behavior); docs/Flows.md (Flow 2; Flow 3; Persistence and refresh flow; Transition guardrails); docs/BusinessRules.md (Canonical fixtures; Transition rules; Business rules and invariants; Matching timer rules; Mock boundaries; Demo Controls rules); docs/Roadmap.md (Catalog; Sprints — Booking); docs/specs/booking/S2-Ride-Request.md (Parts 2–4; Acceptance Criteria)</sub>
