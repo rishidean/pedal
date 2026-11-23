@@ -8,6 +8,8 @@
 
 PEDAL is a deliberately basic, rider-only pedicab hailing app used to teach agentic product development. This repository state contains the product agreement, build order, and three executable sprint contracts. DEVELOPMENT starts here and builds the complete first EPIC.
 
+**[Start here: PRD Walkthrough](./examples/try-render-prd.md)**
+
 > **Do not recover intent from a conversation or prototype. Read the artifacts, execute one ready sprint, return evidence, and record the result.**
 
 ## The Product

@@ -1,4 +1,6 @@
-## Appendix: Try it on PEDAL
+<a name="appendix-try-it-on-pedal"></a>
+
+# PRD Walkthrough
 
 PEDAL is a teaching repository: a deliberately basic pedicab-hailing app with one rider, one trip, and no backend. It has no PRD. The vision, functional brief, rider flows, business rules, roadmap, and sprint specs in `docs/` are the maintained product context. A small skill, `render-prd`, reads them and produces a PRD for one reader, one scope, and one purpose. Each run is generated fresh, so your wording will differ from the excerpts below. The substance should match.
 
